@@ -6,14 +6,16 @@
 
 
 int	freesize;
-struct node *freespace &end;
-struct node *freelist 0;
-int	*fault -1;
+struct node *freespace = &end;
+struct node *freelist = 0;
+int	*fault = -1;
 
+void
 mes(s) {
 	sysput(strstr(s));
 }
 
+struct node *
 init(s, t) {
 	register struct node *a, *b;
 
@@ -24,8 +26,8 @@ init(s, t) {
 	return(b);
 }
 
-main(argc, argv)
-char *argv[];
+int
+main(int argc, char *argv[])
 {
 	extern fin, fout;
 	register struct node *a, *b, *c;
@@ -60,7 +62,8 @@ char *argv[];
 	flush();
 }
 
-syspit() {
+struct node *
+syspit(void) {
 	extern fin;
 	register struct node *b, *c, *d;
 	int a;
@@ -93,8 +96,8 @@ syspit() {
 	return(b);
 }
 
-syspot(string)
-struct node *string;
+void
+syspot(struct node *string)
 {
 	register struct node *a, *b, *s;
 
@@ -126,7 +129,8 @@ char s[];
 	return(d);
 }
 
-class(c) {
+int
+class(intc) {
 	switch (c) {
 		case ')':  return(1);
 		case '(':  return(2);
@@ -166,14 +170,15 @@ alloc() {
 	return(f);
 }
 
-free(pointer)
-struct node *pointer;
+void
+free(struct node *pointer)
 {
 	pointer->p1 = freelist;
 	freelist = pointer;
 }
 
-nfree()
+int
+nfree(void)
 {
 	register int i;
 	register struct node *a;
@@ -187,8 +192,8 @@ nfree()
 	return(i);
 }
 
-look(string)
-struct node *string;
+struct node *
+look(struct node *string)
 {
 	register struct node *i, *j, *k;
 
@@ -214,8 +219,8 @@ struct node *string;
 	return(j);
 }
 
-copy(string)
-struct node *string;
+struct node *
+copy(struct node *string)
 {
 	register struct node *j, *l, *m;
 	struct node *i, *k;
@@ -235,8 +240,7 @@ struct node *string;
 	return(i);
 }
 
-equal(string1, string2)
-struct node *string1, *string2;
+equal(struct node *string1, struct node *string2)
 {
 	register struct node *i, *j, *k;
 	struct node *l;

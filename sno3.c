@@ -5,8 +5,7 @@
  */
 
 
-bextend(str, last)
-struct node *str, *last;
+bextend(struct node *str, struct node *last)
 {
 	register struct node *a, *s;
 	register int b;
@@ -48,8 +47,7 @@ bad:
 	return(0);
 }
 
-ubextend(str, last)
-struct node *str, *last;
+ubextend(struct node *str, struct node *last)
 {
 	register struct node *a, *b, *s;
 
@@ -70,8 +68,7 @@ bad:
 	return(0);
 }
 
-search(arg, r)
-struct node *arg, *r;
+search(struct node *arg, struct node *r)
 {
 	struct node *list, *back, *str,
 		*etc, *next, *last, *base, *e;

@@ -1,7 +1,7 @@
 #include "sno.h"
 
-
-compon() {
+struct node *
+compon(void) {
 	register struct node *a, *b;
 	register int c;
 	static next;
@@ -124,7 +124,8 @@ compon() {
 	return(b);
 }
 
-nscomp()
+struct node *
+nscomp(void)
 {
 	register struct node *c;
 
@@ -133,15 +134,16 @@ nscomp()
 	return(c);
 }
 
-push(stack) {
+struct node *
+push(struct node *stack) {
 	register struct node *a;
 
 	(a=alloc())->p2 = stack;
 	return(a);
 }
 
-pop(stack)
-struct node *stack;
+struct node *
+pop(struct node *stack)
 {
 	register struct node *a, *s;
 
@@ -153,8 +155,8 @@ struct node *stack;
 	return(a);
 }
 
-expr(start, eof, e)
-struct node *e;
+struct node *
+expr(start, eof, struct node *e)
 {
 	register struct node *stack, *list, *comp;
 	int operand, op, space, op1;
@@ -286,8 +288,8 @@ l6:
 	goto l6;
 }
 
-match(start, m)
-struct node *m;
+struct node *
+match(start, struct node *m)
 {
 	register struct node *list, *comp, *term;
 	struct node *a;
@@ -370,7 +372,8 @@ merr:
 	writes("unrecognized component in match");
 }
 
-compile() {
+struct node *
+compile(void) {
 	register struct node *b, *comp;
 	struct node *r, *l, *xs, *xf, *g;
 	register int a;

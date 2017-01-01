@@ -3,9 +3,8 @@
  * sno4
  */
 
-
-and(ptr)
-struct node *ptr;
+struct node *
+and(struct node *ptr)
 {
 	register struct node *a, *p;
 
@@ -35,8 +34,8 @@ struct node *ptr;
 	return(a);
 }
 
-eval(e, t)
-struct node *e;
+struct node *
+eval(struct node *e, t)
 {
 	struct node *list, *a2, *a3, *a4, *a3base;
 	register struct node *a1, *stack, *op;
@@ -147,7 +146,8 @@ l1:
 	}
 }
 
-doop(op, arg1, arg2)
+int
+doop(int op, int arg1, int arg2)
 {
 	register int a1, a2;
 
@@ -169,8 +169,8 @@ doop(op, arg1, arg2)
 	return(0);
 }
 
-execute(e)
-struct node *e;
+struct node *
+execute(struct node *e)
 {
 	register struct node *r, *b, *c;
 	struct node *m, *ca, *d, *a;
@@ -250,8 +250,8 @@ xboth:
 	return(b->p2);
 }
 
-assign(adr, val)
-struct node *adr, *val;
+void
+assign(struct node *adr, struct node *val)
 {
 	register struct node *a, *addr, *value;
 

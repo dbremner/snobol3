@@ -1,4 +1,1 @@
-cc -s -O sno?.c
-cmp a.out /usr/bin/sno
-cp a.out /usr/bin/sno
-rm *.o a.out
+clang -o sno -O -Weverything -Wextra -Wold-style-definition -Wstrict-prototypes -std=c89 sno1.c sno2.c sno3.c sno4.c globals.c
