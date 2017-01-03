@@ -33,7 +33,7 @@ compon(void) {
 			}
 			if (class(schar->ch) != 3)
 				break;
-			free(schar);
+			myfree(schar);
 		}
 		next = 1;
 		a->typ = 7;
@@ -76,7 +76,7 @@ compon(void) {
 			goto lerr;
 		b = schar;
 		if(a->ch == c) {
-			free(schar);
+			myfree(schar);
 			a->typ = 15;
 			a->p1 = 0;
 			return(a);
@@ -130,7 +130,7 @@ nscomp(void)
 	register struct node *c;
 
 	while((c=compon())->typ == 7)
-		free(c);
+		myfree(c);
 	return(c);
 }
 
@@ -151,7 +151,7 @@ pop(struct node *stack)
 	if (s == 0)
 		writes("pop");
 	a = s->p2;
-	free(s);
+	myfree(s);
 	return(a);
 }
 
@@ -182,7 +182,7 @@ l3:
 
 	case 7:
 		space = 1;
-		free(comp);
+		myfree(comp);
 		comp = compon();
 		goto l3;
 
@@ -245,7 +245,7 @@ l3:
 			writes("error in function");
 		a->p1 = 0;
 	l10:
-		free(b);
+		myfree(b);
 		goto l6;
 
 	l4:
@@ -309,7 +309,7 @@ l3:
 l2:
 	switch (comp->typ) {
 	case 7:
-		free(comp);
+		myfree(comp);
 		comp = compon();
 		goto l2;
 
@@ -323,12 +323,12 @@ l2:
 		goto l3;
 
 	case 1:
-		free(comp);
+		myfree(comp);
 		comp = compon();
 		bal = 0;
 		if (comp->typ == 16) {
 			bal = 1;
-			free(comp);
+			myfree(comp);
 			comp = compon();
 		}
 		a = alloc();
@@ -341,13 +341,13 @@ l2:
 		if (comp->typ != 2) {
 			a->p2 = 0;
 		} else {
-			free(comp);
+			myfree(comp);
 			comp = expr(0, 6, a);
 		}
 		if (bal) {
 			if (comp->typ != 5)
 				goto merr;
-			free(comp);
+			myfree(comp);
 			comp = compon();
 		}
 		b = comp->typ;
@@ -356,7 +356,7 @@ l2:
 		list->p2 = a;
 		list->typ = 2;
 		a->typ = bal;
-		free(comp);
+		myfree(comp);
 		comp = compon();
 		if(bal)
 			term = 0; else
@@ -384,13 +384,13 @@ compile(void) {
 	a = comp->typ;
 	if (a == 14) {
 		l = comp->p1;
-		free(comp);
+		myfree(comp);
 		comp = compon();
 		a = comp->typ;
 	}
 	if (a != 7)
 		writes("no space beginning statement");
-	free(comp);
+	myfree(comp);
 	if (l == lookdef)
 		goto def;
 	comp = expr(0, 11, r=alloc());
@@ -413,7 +413,7 @@ compile(void) {
 	writes("unrecognized component in match");
 
 assig:
-	free(comp);
+	myfree(comp);
 	comp = expr(0, 6, as=alloc());
 	a = comp->typ;
 	if (a == 0)
@@ -423,7 +423,7 @@ assig:
 	writes("unrecognized component in assignment");
 
 xfer:
-	free(comp);
+	myfree(comp);
 	comp = compon();
 	a = comp->typ;
 	if (a == 16)
@@ -436,7 +436,7 @@ xfer:
 	if (a != 14)
 		goto xerr;
 	b = comp->p1;
-	free(comp);
+	myfree(comp);
 	if (b == looks)
 		goto xsuc;
 	if (b == lookf)
@@ -446,7 +446,7 @@ xerr:
 	writes("unrecognized component in goto");
 
 xboth:
-	free(comp);
+	myfree(comp);
 	xs = alloc();
 	xf = alloc();
 	comp = expr(0, 6, xs);
@@ -501,12 +501,12 @@ asmble:
 	(g=alloc())->p1 = 0;
 	if (xs) {
 		g->p1 = xs->p2;
-		free(xs);
+		myfree(xs);
 	}
 	g->p2 = 0;
 	if (xf) {
 		g->p2 = xf->p2;
-		free(xf);
+		myfree(xf);
 	}
 	r->p1 = g;
 	comp->typ = t;
@@ -540,15 +540,15 @@ d2:
 	a = r;
 	r = nscomp();
 	if (r->typ == 4) {
-		free(r);
+		myfree(r);
 		goto d2;
 	}
 	if (r->typ != 5)
 		goto derr;
-	free(r);
+	myfree(r);
 	if ((r=compon())->typ != 0)
 		goto derr;
-	free(r);
+	myfree(r);
 
 d4:
 	r = compile();

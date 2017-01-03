@@ -110,7 +110,7 @@ l1:
 		op->p2 = a3->p2;
 	f4:
 		a4 = a3->p1;
-		free(a3);
+		myfree(a3);
 		a3 = a4;
 		a1 = a1->p2;
 		if (a1 == 0)
@@ -190,7 +190,7 @@ execute(struct node *e)
 		delete(b);
 		if (c == 0)
 			goto xfail;
-		free(c);
+		myfree(c);
 		goto xsuc;
 	case 2: /*  r a g */
 		ca = r->p1;
@@ -208,21 +208,21 @@ execute(struct node *e)
 			goto xfail;
 		c = eval(ca->p2, 1);
 		if (d->p1 == 0) {
-			free(d);
+			myfree(d);
 			assign(b, cat(c, b->p2));
 			delete(c);
 			goto xsuc;
 		}
 		if (d->p2 == b->p2->p2) {
 			assign(b, c);
-			free(d);
+			myfree(d);
 			goto xsuc;
 		}
 		(r=alloc())->p1 = d->p2->p1;
 		r->p2 = b->p2->p2;
 		assign(b, cat(c, r));
-		free(d);
-		free(r);
+		myfree(d);
+		myfree(r);
 		delete(c);
 		goto xsuc;
 	}

@@ -19,7 +19,7 @@ struct node *
 init(s, t) {
 	register struct node *a, *b;
 
-	a = strstr(s);
+	a = mystrstr(s);
 	b = look(a);
 	delete(a);
 	b->typ = t;
@@ -113,8 +113,8 @@ syspot(struct node *string)
 	putchar('\n');
 }
 
-strstr(s)
-char s[];
+struct node*
+mystrstr(char s[])
 {
 	int c;
 	register struct node *e, *f, *d;
@@ -171,7 +171,7 @@ alloc() {
 }
 
 void
-free(struct node *pointer)
+myfree(struct node *pointer)
 {
 	pointer->p1 = freelist;
 	freelist = pointer;
@@ -365,7 +365,7 @@ struct node *string1, *string2;
 	b = copy(string2);
 	a->p2->p1 = b->p1;
 	a->p2 = b->p2;
-	free(b);
+	myfree(b);
 	return(a);
 }
 
@@ -391,10 +391,10 @@ struct node *string;
 	b = string->p2;
 	while(a != b) {
 		c = a->p1;
-		free(a);
+		myfree(a);
 		a = c;
 	}
-	free(a);
+	myfree(a);
 }
 
 sysput(string) {
@@ -416,12 +416,12 @@ struct node *base;
 	while (base) {
 		b = base->p1;
 		c = binstr(b->typ);
-		d = strstr("  ");
+		d = mystrstr("  ");
 		e = dcat(c, d);
 		sysput(cat(e, b->p1));
 		delete(e);
 		if (b->typ==1) {
-			c = strstr("   ");
+			c = mystrstr("   ");
 			sysput(cat(c, b->p2));
 			delete(c);
 		}
@@ -464,7 +464,7 @@ getc() {
 	}
 	a = line->p1;
 	if (a==line->p2) {
-		free(line);
+		myfree(line);
 		linflg++;
 	} else
 		line->p1 = a->p1;

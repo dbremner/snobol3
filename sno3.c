@@ -239,9 +239,9 @@ fail:
 	list = base;
 	goto f1;
 fadv:
-	free(back);
+	myfree(back);
 	b = list->p1;
-	free(list);
+	myfree(list);
 	if (b == 0)
 		return(a);
 	list = b;
@@ -256,14 +256,14 @@ f1:
 	etc = var->p2;
 	if (a != 0 & etc->p1 != 0) {
 		if (str->p2 == 0) {
-			free(str);
+			myfree(str);
 			str = 0;
 		}
 		assign(etc->p1, copy(str));
 	}
 	if (str)
-		free(str);
-	free(etc);
-	free(var);
+		myfree(str);
+	myfree(etc);
+	myfree(var);
 	goto fadv;
 }
